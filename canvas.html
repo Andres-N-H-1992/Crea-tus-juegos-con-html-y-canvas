@@ -6,27 +6,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CAnva-s</title>
 
+
+    <!--  *************************************************************************   -->
     <style>
         canvas {
-            background-color: red;
+            background-color: cyan;
             border: solid yellow 3px;
         }
     </style>
 
+    <!--  *************************************************************************   -->
 
     <script>
         window.onload = function () {
             canvas = document.getElementById('canvas');
 
+            
             if (canvas && canvas.getContext) {
                 ctx = canvas.getContext("2d");
 
                 if (ctx) {
+                    // alert("si, se soporta la etiqueta canvas");
 
-                    alert("si, se soporta la etiqueta canvas");
+                    //definimos colores al cuadrado
+                    ctx.fillStyle = "yellow";
+                    ctx.strockeStyle = "#ff0000"; 
+                    ctx.lineWidth =5;
+
+                    //x,y,w,h
+                    //parametro x, Parametro Y, w=ancho, h=alto
+                    ctx.fillRect(50,50,100,100);
+                    ctx.strokeRect(50,50,100,100);
+
+
+                    // cambiar color de relleno
+                    ctx.fillStyle = "rgba(250,250,0,0.25)";
+                    ctx.fillRect(200,50,100,100);
+                    ctx.strokeRect(200,50,100,100);
+
+
+
                 } else {
 
-                    alert("no, se soporta la etiqueta canvas");
+                    // alert("no, se soporta la etiqueta canvas");
                 }
 
             }
@@ -37,6 +59,8 @@
 
 
     </script>
+
+    <!--  *************************************************************************   -->
 
 
 </head>
