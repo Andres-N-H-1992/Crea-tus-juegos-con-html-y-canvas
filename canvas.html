@@ -2,74 +2,60 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CAnva-s</title>
-
+    <meta charset="UTF-8"> <!-- Define la codificación de caracteres como UTF-8 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Ajusta el ancho de la página al ancho del dispositivo -->
+    <title>CAnva-s</title> <!-- Título de la página -->
 
     <!--  *************************************************************************   -->
     <style>
         canvas {
-            background-color: cyan;
-            border: solid yellow 3px;
+            background-color: cyan; /* Establece el color de fondo del canvas */
+            border: solid yellow 3px; /* Define un borde sólido amarillo de 3px */
         }
     </style>
-
     <!--  *************************************************************************   -->
 
     <script>
         window.onload = function () {
-            canvas = document.getElementById('canvas');
+            // Se ejecuta cuando la ventana se ha cargado completamente
+            canvas = document.getElementById('canvas'); // Obtiene el elemento canvas por su ID
 
-            
             if (canvas && canvas.getContext) {
-                ctx = canvas.getContext("2d");
+                ctx = canvas.getContext("2d"); // Obtiene el contexto 2D del canvas
 
                 if (ctx) {
                     // alert("si, se soporta la etiqueta canvas");
 
-                    //definimos colores al cuadrado
-                    ctx.fillStyle = "yellow";
-                    ctx.strockeStyle = "#ff0000"; 
-                    ctx.lineWidth =5;
+                    // Definimos colores al cuadrado
+                    ctx.fillStyle = "yellow"; // Establece el color de relleno como amarillo
+                    ctx.strockeStyle = "#ff0000"; // Establece el color del borde como rojo (nota: hay un error tipográfico aquí, debería ser 'strokeStyle')
+                    ctx.lineWidth = 5; // Establece el grosor de la línea del borde a 5 píxeles
 
-                    //x,y,w,h
-                    //parametro x, Parametro Y, w=ancho, h=alto
-                    ctx.fillRect(50,50,100,100);
-                    ctx.strokeRect(50,50,100,100);
+                    // x, y, w, h
+                    // Parámetro x, Parámetro Y, w=ancho, h=alto
+                    ctx.fillRect(50, 50, 100, 100); // Dibuja un rectángulo relleno
+                    ctx.strokeRect(50, 50, 100, 100); // Dibuja un rectángulo solo con el borde
 
-
-                    // cambiar color de relleno
-                    ctx.fillStyle = "rgba(250,250,0,0.25)";
-                    ctx.fillRect(200,50,100,100);
-                    ctx.strokeRect(200,50,100,100);
-
-
+                    // Cambiar color de relleno
+                    ctx.fillStyle = "rgba(250,250,0,0.25)"; // Establece un color de relleno semi-transparente
+                    ctx.fillRect(200, 50, 100, 100); // Dibuja un segundo rectángulo relleno
+                    ctx.strokeRect(200, 50, 100, 100); // Dibuja el borde del segundo rectángulo
 
                 } else {
-
                     // alert("no, se soporta la etiqueta canvas");
                 }
 
             }
-
-
-
         }
-
-
     </script>
-
     <!--  *************************************************************************   -->
-
 
 </head>
 
 <body>
 
-
     <canvas id="canvas" width="600" height="400">
-
+        <!-- El canvas es un área de dibujo definida por su ID, ancho y alto -->
     </canvas>
 
 </body>

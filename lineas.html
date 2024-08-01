@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAnva-s</title>
+
+
+    <!--  *************************************************************************   -->
+    <style>
+        canvas {
+            background-color: cyan;
+            border: solid yellow 3px;
+        }
+    </style>
+
+    <!--  *************************************************************************   -->
+
+    <script>
+        window.onload = function () {
+            canvas = document.getElementById('canvas');
+
+
+            if (canvas && canvas.getContext) {
+                ctx = canvas.getContext("2d");
+
+                if (ctx) {
+                    // alert("si, se soporta la etiqueta canvas");
+
+                    //estilos
+                    ctx.lineWidth = 5;
+                    ctx.strokeStyle = "yellow";
+
+                    //inicializamos la linea con el metodo beginPath
+                    ctx.beginPath();
+                    ctx.moveTo(50, 50);
+                    ctx.lineTo(450, 50);
+                    ctx.stroke();
+
+
+
+
+
+                } else {
+
+                    // alert("no, se soporta la etiqueta canvas");
+                }
+
+            }
+
+
+
+        }
+
+
+    </script>
+
+    <!--  *************************************************************************   -->
+
+
+</head>
+
+<body>
+
+
+    <canvas id="canvas" width="600" height="400">
+
+    </canvas>
+
+</body>
+
+</html>
