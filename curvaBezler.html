@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAnva-s</title>
+
+
+    <!--  *************************************************************************   -->
+    <style>
+        canvas {
+            background-color: cyan;
+            border: solid yellow 3px;
+        }
+    </style>
+
+    <!--  *************************************************************************   -->
+
+    <script>
+        window.onload = function () {
+            // Ejecuta esta función cuando la ventana se haya cargado completamente.
+
+            canvas = document.getElementById('canvas');
+            // Obtiene el elemento canvas del documento HTML.
+
+            if (canvas && canvas.getContext) {
+                ctx = canvas.getContext("2d");
+                ctx.fillStyle = "red";
+
+
+                if (ctx) {
+
+                    ctx.lineWidth = 15;
+                    ctx.strokeStyle = "yellow";
+                    ctx.fillStyle = "red";
+
+                    ctx.beginPath();
+
+                    var x1 = 20, y1 = 20;
+                    ctx.moveTo(x1, y1);
+                    ctx.quadraticCurveTo(15, 100, 200, 20);
+                    ctx.stroke();
+
+
+
+
+
+
+
+
+                } else {
+                    // Muestra una alerta si el contexto 2D no es compatible.
+                    // alert("no, se soporta la etiqueta canvas");
+                }
+            }
+        }
+
+
+
+    </script>
+
+    <!--  *************************************************************************   -->
+
+
+</head>
+
+<body>
+
+
+    <canvas id="canvas" width="600" height="400">
+
+    </canvas>
+
+</body>
+
+</html>
