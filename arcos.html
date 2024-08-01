@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAnva-s</title>
+
+
+    <!--  *************************************************************************   -->
+    <style>
+        canvas {
+            background-color: cyan;
+            border: solid yellow 3px;
+        }
+    </style>
+
+    <!--  *************************************************************************   -->
+
+    <script>
+        window.onload = function () {
+            // Ejecuta esta función cuando la ventana se haya cargado completamente.
+
+            canvas = document.getElementById('canvas');
+            // Obtiene el elemento canvas del documento HTML.
+
+            if (canvas && canvas.getContext) {
+                ctx = canvas.getContext("2d");
+                ctx.fillStyle = "red";
+
+
+                if (ctx) {
+
+
+                    // Establece el ancho de línea para los dibujos.
+                    ctx.lineWidth = 15;
+                    // Establece el color de la línea en amarillo.
+                    ctx.strokeStyle = "yellow";
+                    // Establece el color de relleno en rojo.
+                    ctx.fillStyle = "red";
+
+
+
+
+
+                    // Dibujo del primer arco.
+                    ctx.beginPath();
+                    // Dibuja un arco con centro en (100, 150), radio de 50, desde 1.1 * PI radianes hasta 1.9 * PI radianes.
+                    ctx.arc(100, 150, 50, 1.1 * Math.PI, 1.9 * Math.PI);
+                    // Dibuja el contorno del arco.
+                    ctx.stroke();
+
+                    // Dibujo del segundo arco.
+                    ctx.beginPath();
+                    // Dibuja un arco con centro en (250, 150), radio de 50, desde 1.1 * PI radianes hasta 1.9 * PI radianes, en sentido antihorario.
+                    ctx.arc(250, 150, 50, 1.1 * Math.PI, 1.9 * Math.PI, true);
+                    // Dibuja el contorno del arco.
+                    ctx.stroke();
+
+
+
+
+
+                    // Dibujo del tercer arco.
+                    ctx.beginPath();
+                    // Dibuja un arco completo (círculo) con centro en (400, 150), radio de 50, desde 0 radianes hasta 2 * PI radianes.
+                    ctx.arc(400, 150, 50, 0, 2 * Math.PI);
+                    // Rellena el círculo con el color de relleno definido.
+                    ctx.fill();
+                    // Dibuja el contorno del círculo.
+                    ctx.stroke();
+
+
+                    
+
+                } else {
+                    // Muestra una alerta si el contexto 2D no es compatible.
+                    // alert("no, se soporta la etiqueta canvas");
+                }
+            }
+        }
+
+
+
+    </script>
+
+    <!--  *************************************************************************   -->
+
+
+</head>
+
+<body>
+
+
+    <canvas id="canvas" width="600" height="400">
+
+    </canvas>
+
+</body>
+
+</html>
