@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAnva-s</title>
+
+
+    <!--  *************************************************************************   -->
+    <style>
+        canvas {
+            background-color: cyan;
+            border: solid yellow 3px;
+        }
+    </style>
+
+    <!--  *************************************************************************   -->
+
+    <script>
+        window.onload = function () {
+            // Ejecuta esta función cuando la ventana se haya cargado completamente.
+
+            canvas = document.getElementById('canvas');
+            // Obtiene el elemento canvas del documento HTML.
+
+            if (canvas && canvas.getContext) {
+                ctx = canvas.getContext("2d");
+                // Si el canvas existe y es compatible con el contexto 2D, obtiene el contexto 2D.
+
+                if (ctx) {
+                    // Si el contexto 2D es compatible, procede con el dibujo.
+
+// Establece el ancho de línea para los dibujos.
+ctx.lineWidth = 15;
+
+// Establece el color de la línea en amarillo.
+ctx.strokeStyle = "yellow";
+
+// Establece el color de relleno en rojo.
+ctx.fillStyle = "red";
+
+// Inicializa un nuevo camino o ruta de dibujo.
+ctx.beginPath();
+
+// Mueve el punto de inicio del camino a las coordenadas (50, 100).
+ctx.moveTo(50, 100);
+
+// Dibuja una línea desde el punto actual hasta las coordenadas (100, 50).
+ctx.lineTo(100, 50);
+
+// Dibuja una línea desde el punto actual hasta las coordenadas (150, 100).
+ctx.lineTo(150, 100);
+
+// Dibuja una línea desde el punto actual hasta las coordenadas (100, 150).
+ctx.lineTo(100, 150);
+
+// Dibuja el camino definido en el contexto.
+ctx.stroke();
+
+// Inicializa un nuevo camino o ruta de dibujo.
+ctx.beginPath();
+
+// Mueve el punto de inicio del camino a las coordenadas (200, 100).
+ctx.moveTo(200, 100);
+
+// Dibuja una línea desde el punto actual hasta las coordenadas (250, 50).
+ctx.lineTo(250, 50);
+
+// Dibuja una línea desde el punto actual hasta las coordenadas (300, 100).
+ctx.lineTo(300, 100);
+
+// Dibuja una línea desde el punto actual hasta las coordenadas (250, 150).
+ctx.lineTo(250, 150);
+
+// Cierra el camino actual, conectando el punto final con el punto inicial.
+ctx.closePath();
+
+// Dibuja el camino definido en el contexto.
+ctx.stroke();
+
+// Inicializa un nuevo camino o ruta de dibujo.
+ctx.beginPath();
+
+// Mueve el punto de inicio del camino a las coordenadas (200, 100).
+ctx.moveTo(200, 100);
+
+// Dibuja una línea desde el punto actual hasta las coordenadas (250, 50).
+ctx.lineTo(250, 50);
+
+// Dibuja una línea desde el punto actual hasta las coordenadas (300, 100).
+ctx.lineTo(300, 100);
+
+// Dibuja una línea desde el punto actual hasta las coordenadas (250, 150).
+ctx.lineTo(250, 150);
+
+// Rellena el área del camino cerrado con el color de relleno definido.
+ctx.fill();
+
+// Cierra el camino actual, conectando el punto final con el punto inicial.
+ctx.closePath();
+
+// Dibuja el camino definido en el contexto.
+ctx.stroke();
+
+
+                } else {
+                    // Muestra una alerta si el contexto 2D no es compatible.
+                    // alert("no, se soporta la etiqueta canvas");
+                }
+            }
+        }
+
+
+
+    </script>
+
+    <!--  *************************************************************************   -->
+
+
+</head>
+
+<body>
+
+
+    <canvas id="canvas" width="600" height="400">
+
+    </canvas>
+
+</body>
+
+</html>

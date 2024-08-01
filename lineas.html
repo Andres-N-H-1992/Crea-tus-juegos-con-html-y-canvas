@@ -18,55 +18,83 @@
     <!--  *************************************************************************   -->
 
     <script>
-        window.onload = function () {
-            canvas = document.getElementById('canvas');
+      window.onload = function () {
+    // Ejecuta esta función cuando la ventana se haya cargado completamente.
+    
+    canvas = document.getElementById('canvas');
+    // Obtiene el elemento canvas del documento HTML.
 
+    if (canvas && canvas.getContext) {
+        ctx = canvas.getContext("2d");
+        // Si el canvas existe y es compatible con el contexto 2D, obtiene el contexto 2D.
 
-            if (canvas && canvas.getContext) {
-                ctx = canvas.getContext("2d");
+        if (ctx) {
+            // Si el contexto 2D es compatible, procede con el dibujo.
 
-                if (ctx) {
-                    // alert("si, se soporta la etiqueta canvas");
+            // Establece el ancho de línea para los dibujos.
+            ctx.lineWidth = 25;
 
-                    //estilos
-                    ctx.lineWidth = 25;
-                    ctx.strokeStyle = "yellow";
-                    //inicializamos la linea con el metodo beginPath
-                    ctx.beginPath();
-                    ctx.lineCap="round";
-                    ctx.moveTo(50, 50);
-                    ctx.lineTo(450, 50);
-                    ctx.stroke();
+            // Establece el color de la línea en amarillo.
+            ctx.strokeStyle = "yellow";
 
+            // Inicializa un nuevo camino o ruta de dibujo.
+            ctx.beginPath();
 
-                    ctx.strokeStyle = "orange";
-                    ctx.beginPath();
-                    ctx.lineCap="square";
-                    ctx.moveTo(50, 100);
-                    ctx.lineTo(450, 100);
-                    ctx.stroke();
+            // Establece el estilo de los extremos de línea como redondeados.
+            ctx.lineCap = "round";
 
+            // Mueve el punto de inicio del camino a las coordenadas (50, 50).
+            ctx.moveTo(50, 50);
 
-                    ctx.strokeStyle = "blue";
-                    ctx.beginPath();
-                    ctx.lineCap="butt";
-                    ctx.moveTo(50, 150);
-                    ctx.lineTo(450, 150);
-                    ctx.stroke();
+            // Dibuja una línea desde el punto actual hasta las coordenadas (450, 50).
+            ctx.lineTo(450, 50);
 
+            // Dibuja el camino definido en el contexto.
+            ctx.stroke();
 
+            // Cambia el color de la línea a naranja.
+            ctx.strokeStyle = "orange";
 
+            // Inicia un nuevo camino de dibujo.
+            ctx.beginPath();
 
-                } else {
+            // Establece el estilo de los extremos de línea como cuadrados.
+            ctx.lineCap = "square";
 
-                    // alert("no, se soporta la etiqueta canvas");
-                }
+            // Mueve el punto de inicio del camino a las coordenadas (50, 100).
+            ctx.moveTo(50, 100);
 
-            }
+            // Dibuja una línea desde el punto actual hasta las coordenadas (450, 100).
+            ctx.lineTo(450, 100);
 
+            // Dibuja el camino definido en el contexto.
+            ctx.stroke();
 
+            // Cambia el color de la línea a azul.
+            ctx.strokeStyle = "blue";
 
+            // Inicia un nuevo camino de dibujo.
+            ctx.beginPath();
+
+            // Establece el estilo de los extremos de línea como planos.
+            ctx.lineCap = "butt";
+
+            // Mueve el punto de inicio del camino a las coordenadas (50, 150).
+            ctx.moveTo(50, 150);
+
+            // Dibuja una línea desde el punto actual hasta las coordenadas (450, 150).
+            ctx.lineTo(450, 150);
+
+            // Dibuja el camino definido en el contexto.
+            ctx.stroke();
+
+        } else {
+            // Muestra una alerta si el contexto 2D no es compatible.
+            // alert("no, se soporta la etiqueta canvas");
         }
+    }
+}
+
 
 
     </script>
