@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAnva-estrella</title>
+
+    <!--  *************************************************************************   -->
+    <style>
+        canvas {
+            background-color: rgb(8, 163, 2);
+            border: solid yellow 3px;
+        }
+    </style>
+
+    <!--  *************************************************************************   -->
+
+    <script>
+        window.onload = function () {
+            // Ejecuta esta función cuando la ventana se haya cargado completamente.
+    
+            canvas = document.getElementById('canvas');
+            // Obtiene el elemento canvas del documento HTML.
+    
+            if (canvas && canvas.getContext) {
+                ctx = canvas.getContext("2d");
+    
+                if (ctx) {
+    
+                    var puntas = 10;
+                    var vertices = puntas * 2;
+                    var angulo = Math.PI * 2 / vertices;
+                    var radioInterno = 40;
+                    var radioExterno = 80;
+                    var xx = canvas.width / 2;
+                    var yy = canvas.height / 2;  // Declaración de la variable yy
+    
+                    ctx.lineWidth = 10;
+                    ctx.strokeStyle = "red";
+                    ctx.fillStyle ="yellow";
+                    ctx.beginPath();
+                    
+    
+                    for (var i = 0; i < vertices; i++) {
+                        var x, y;
+    
+                        if (i % 2 == 0) {
+                            x = Math.cos(angulo * i) * radioExterno;
+                            y = Math.sin(angulo * i) * radioExterno;
+    
+                        } else {
+                            x = Math.cos(angulo * i) * radioInterno;
+                            y = Math.sin(angulo * i) * radioInterno;
+                        }
+    
+                        ctx.lineTo(xx + x, yy + y);
+    
+                    }
+    
+                    ctx.closePath();  // Corrección del método
+                    ctx.fill();
+                    ctx.stroke();
+    
+                } else {
+                    alert("No se soporta la etiqueta canvas");
+                }
+            }
+        }
+    </script>
+    
+
+    <!--  *************************************************************************   -->
+
+
+</head>
+
+<body>
+    <canvas id="canvas" width="600" height="400">
+    </canvas>
+</body>
+
+</html>
