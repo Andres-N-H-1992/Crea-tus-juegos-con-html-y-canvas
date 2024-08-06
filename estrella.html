@@ -19,56 +19,84 @@
     <script>
         window.onload = function () {
             // Ejecuta esta función cuando la ventana se haya cargado completamente.
-    
+
             canvas = document.getElementById('canvas');
             // Obtiene el elemento canvas del documento HTML.
-    
+
             if (canvas && canvas.getContext) {
                 ctx = canvas.getContext("2d");
-    
+                // Si el canvas existe y es compatible con el contexto 2D, obtiene el contexto 2D.
+
                 if (ctx) {
-    
+                    // Si el contexto 2D es compatible, procede con el dibujo.
+
+                    // Define el número de puntas de la estrella.
                     var puntas = 10;
+
+                    // Calcula el número de vértices, que es el doble del número de puntas.
                     var vertices = puntas * 2;
+
+                    // Calcula el ángulo entre los vértices.
                     var angulo = Math.PI * 2 / vertices;
+
+                    // Define el radio interno y externo de la estrella.
                     var radioInterno = 40;
                     var radioExterno = 80;
+
+                    // Calcula las coordenadas del centro del canvas.
                     var xx = canvas.width / 2;
-                    var yy = canvas.height / 2;  // Declaración de la variable yy
-    
+                    var yy = canvas.height / 2;
+
+                    // Establece el ancho de línea para el dibujo.
                     ctx.lineWidth = 10;
+
+                    // Establece el color de la línea en rojo.
                     ctx.strokeStyle = "red";
-                    ctx.fillStyle ="yellow";
+
+                    // Establece el color de relleno en amarillo.
+                    ctx.fillStyle = "yellow";
+
+                    // Inicializa un nuevo camino o ruta de dibujo.
                     ctx.beginPath();
-                    
-    
+
+                    // Bucle para dibujar los vértices de la estrella.
                     for (var i = 0; i < vertices; i++) {
                         var x, y;
-    
+
+                        // Alterna entre el radio externo e interno según el índice.
                         if (i % 2 == 0) {
+                            // Si el índice es par, utiliza el radio externo para calcular las coordenadas.
                             x = Math.cos(angulo * i) * radioExterno;
                             y = Math.sin(angulo * i) * radioExterno;
-    
                         } else {
+                            // Si el índice es impar, utiliza el radio interno para calcular las coordenadas.
                             x = Math.cos(angulo * i) * radioInterno;
                             y = Math.sin(angulo * i) * radioInterno;
                         }
-    
+
+
+                        // Dibuja una línea hasta las coordenadas (xx + x, yy + y).
                         ctx.lineTo(xx + x, yy + y);
-    
                     }
-    
-                    ctx.closePath();  // Corrección del método
+
+                    // Cierra el camino actual, conectando el punto final con el punto inicial.
+                    ctx.closePath();
+
+                    // Rellena el área de la estrella con el color de relleno definido.
                     ctx.fill();
+
+                    // Dibuja el contorno del camino definido en el contexto.
                     ctx.stroke();
-    
+
                 } else {
+                    // Muestra una alerta si el contexto 2D no es compatible.
                     alert("No se soporta la etiqueta canvas");
                 }
             }
         }
+
     </script>
-    
+
 
     <!--  *************************************************************************   -->
 

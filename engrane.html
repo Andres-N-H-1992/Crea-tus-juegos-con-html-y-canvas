@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAnva-estrella</title>
+
+    <!--  *************************************************************************   -->
+    <style>
+        canvas {
+            background-color: rgb(8, 163, 2);
+            border: solid yellow 3px;
+        }
+    </style>
+
+    <!--  *************************************************************************   -->
+
+    <script>
+  window.onload = function () {
+    // Ejecuta esta función cuando la ventana se haya cargado completamente.
+
+    canvas = document.getElementById('canvas');
+    // Obtiene el elemento canvas del documento HTML.
+
+    if (canvas && canvas.getContext) {
+        ctx = canvas.getContext("2d");
+        // Si el canvas existe y es compatible con el contexto 2D, obtiene el contexto 2D.
+
+        if (ctx) {
+            // Si el contexto 2D es compatible, procede con el dibujo.
+
+            // Define las coordenadas del centro del canvas.
+            var centroX = canvas.width / 2;
+            var centroY = canvas.height / 2;
+
+            // Define los radios de los círculos.
+            var radiosExterno = 95;
+            var radioInterno = 50;
+            var radioMedio = radioInterno * 1.6;
+            var radioCentro = 20;
+
+            // Define el número de puntos para el dibujo.
+            var numPuntos = 40;
+
+            // Inicializa un nuevo camino o ruta de dibujo.
+            ctx.beginPath();
+
+            // Establece el estilo de las uniones de línea como biseladas.
+            ctx.lineJoin = "bevel";
+
+            // Bucle para dibujar las líneas del dibujo.
+            for (var i = 0; i < numPuntos; i++) {
+                var radio = null;
+
+                // Alterna el radio entre el externo e interno según el índice.
+                if (i % 2 == 0) {
+                    radio = radiosExterno;
+                } else {
+                    radio = radioInterno;
+                }
+
+                // Calcula el ángulo en radianes para la posición actual del punto.
+                var angulo = Math.PI * 2 / numPuntos * (i + 1);
+
+                // Calcula las coordenadas (x, y) del punto basado en el radio y el ángulo.
+                var x = (radio * Math.sin(angulo)) + centroX;
+                var y = (radio * Math.cos(angulo)) + centroY;
+
+                // Mueve el punto inicial del camino o dibuja una línea hasta las coordenadas (x, y).
+                if (i === 0) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+            }
+
+            // Cierra el camino actual, conectando el punto final con el punto inicial.
+            ctx.closePath();
+
+            // Establece el ancho de línea para el dibujo.
+            ctx.lineWidth = 10;
+
+            // Establece el color de la línea en amarillo.
+            ctx.strokeStyle = "yellow";
+
+            // Establece el color de relleno en rojo.
+            ctx.fillStyle = "red";
+
+            // Dibuja el contorno del camino definido en el contexto.
+            ctx.stroke();
+
+        } else {
+            // Muestra una alerta si el contexto 2D no es compatible.
+            alert("No se soporta la etiqueta canvas");
+        }
+    }
+}
+
+    </script>
+
+
+    <!--  *************************************************************************   -->
+
+
+</head>
+
+<body>
+    <canvas id="canvas" width="600" height="400">
+    </canvas>
+</body>
+
+</html>

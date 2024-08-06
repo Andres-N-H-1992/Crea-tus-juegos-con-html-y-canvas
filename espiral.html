@@ -18,43 +18,61 @@
 
     <script>
         window.onload = function () {
-            // Ejecuta esta función cuando la ventana se haya cargado completamente.
+    // Ejecuta esta función cuando la ventana se haya cargado completamente.
 
-            canvas = document.getElementById('canvas');
-            // Obtiene el elemento canvas del documento HTML.
+    canvas = document.getElementById('canvas');
+    // Obtiene el elemento canvas del documento HTML.
 
-            if (canvas && canvas.getContext) {
-                ctx = canvas.getContext("2d");
+    if (canvas && canvas.getContext) {
+        ctx = canvas.getContext("2d");
+        // Si el canvas existe y es compatible con el contexto 2D, obtiene el contexto 2D.
 
-                if (ctx) {
+        if (ctx) {
+            // Si el contexto 2D es compatible, procede con el dibujo.
 
-                    let radio = 0, angulo = 0;
+            let radio = 0, angulo = 0;
+            // Inicializa las variables para el radio y el ángulo.
 
-                    ctx.lineWidth = 10;
-                    ctx.strokeStyle = "black";
-                    ctx.beginPath();
-                    ctx.moveTo(canvas.width / 2, canvas.height / 2);
+            ctx.lineWidth = 10;
+            // Establece el ancho de línea para el dibujo.
 
-                    for (var i = 0; i < 200; i++) {
+            ctx.strokeStyle = "black";
+            // Establece el color de la línea en negro.
 
-                        radio += 0.75;
-                        angulo += (Math.PI * 2) / 50;
-                        var x = canvas.width / 2 + radio * Math.cos(angulo);
-                        var y = canvas.height / 2 + radio * Math.sin(angulo);
+            ctx.beginPath();
+            // Inicializa un nuevo camino o ruta de dibujo.
 
-                        ctx.lineTo(x, y);
+            ctx.moveTo(canvas.width / 2, canvas.height / 2);
+            // Mueve el punto de inicio del camino al centro del canvas.
 
-                    }
+            for (var i = 0; i < 200; i++) {
+                // Bucle para dibujar la espiral.
 
-                    ctx.stroke();
+                radio += 0.75;
+                // Incrementa el radio para cada iteración del bucle.
 
+                angulo += (Math.PI * 2) / 50;
+                // Incrementa el ángulo para cada iteración del bucle.
 
+                var x = canvas.width / 2 + radio * Math.cos(angulo);
+                // Calcula la coordenada x basándose en el radio y el ángulo.
 
-                } else {
-                     alert("no, se soporta la etiqueta canvas");
-                }
+                var y = canvas.height / 2 + radio * Math.sin(angulo);
+                // Calcula la coordenada y basándose en el radio y el ángulo.
+
+                ctx.lineTo(x, y);
+                // Dibuja una línea hasta las coordenadas (x, y).
             }
+
+            ctx.stroke();
+            // Dibuja el contorno del camino definido en el contexto.
+
+        } else {
+            // Muestra una alerta si el contexto 2D no es compatible.
+            alert("No se soporta la etiqueta canvas");
         }
+    }
+}
 
     </script>
 

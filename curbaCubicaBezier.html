@@ -25,37 +25,42 @@
 
             if (canvas && canvas.getContext) {
                 ctx = canvas.getContext("2d");
-                ctx.fillStyle = "red";
+                // Si el canvas existe y es compatible con el contexto 2D, obtiene el contexto 2D.
 
+                ctx.fillStyle = "red";
+                // Establece el color de relleno en rojo (aunque no se usa en este ejemplo).
 
                 if (ctx) {
+                    // Si el contexto 2D es compatible, procede con el dibujo.
 
                     ctx.lineWidth = 15;
+                    // Establece el ancho de línea para el dibujo.
+
                     ctx.strokeStyle = "yellow";
+                    // Establece el color de la línea en amarillo.
+
                     ctx.fillStyle = "red";
+                    // Establece el color de relleno en rojo (de nuevo, aunque no se usa en este ejemplo).
 
                     ctx.beginPath();
+                    // Inicializa un nuevo camino o ruta de dibujo.
 
                     ctx.moveTo(20, 20);
+                    // Mueve el punto de inicio del camino a las coordenadas (20, 20).
 
-                    ctx.bezierCurveTo(60, 200, 500, 100, 200, 300)
+                    ctx.bezierCurveTo(60, 200, 500, 100, 200, 300);
+                    // Dibuja una curva de Bézier cúbica desde el punto actual a (200, 300)
+                    // usando (60, 200) como el primer punto de control y (500, 100) como el segundo punto de control.
 
                     ctx.stroke();
-
-
-
-
-
-
-
+                    // Dibuja el contorno del camino definido en el contexto.
 
                 } else {
                     // Muestra una alerta si el contexto 2D no es compatible.
-                    // alert("no, se soporta la etiqueta canvas");
+                    alert("No se soporta la etiqueta canvas");
                 }
             }
         }
-
     </script>
 
     <!--  *************************************************************************   -->
