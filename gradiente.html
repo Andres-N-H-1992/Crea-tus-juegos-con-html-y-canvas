@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAnva-estrella</title>
+
+    <!--  *************************************************************************   -->
+    <style>
+        canvas {
+            background-color: green;
+            border: solid yellow 3px;
+        }
+    </style>
+
+    <!--  *************************************************************************   -->
+
+    <script>
+      window.onload = function () {
+    // Ejecuta esta función cuando la ventana se haya cargado completamente.
+
+    var canvas = document.getElementById('canvas');
+    // Obtiene el elemento canvas del documento HTML.
+
+    if (canvas && canvas.getContext) {
+        var ctx = canvas.getContext("2d");
+        // Si el canvas existe y es compatible con el contexto 2D, obtiene el contexto 2D.
+
+        if (ctx) {
+            var gradiante = ctx.createLinearGradient(0, 0, canvas.width, 0);
+
+            gradiante.addColorStop(0, "green");
+            gradiante.addColorStop(0.45, "white");
+            gradiante.addColorStop(0.55, "red");
+            gradiante.addColorStop(1, "cyan");
+
+            ctx.fillStyle = gradiante;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        } else {
+            // Muestra una alerta si el contexto 2D no es compatible.
+            alert("No se soporta la etiqueta canvas");
+        }
+    }
+}
+
+
+    </script>
+
+
+    <!--  *************************************************************************   -->
+
+
+</head>
+
+<body>
+    <canvas id="canvas" width="600" height="400">
+    </canvas>
+</body>
+
+</html>
