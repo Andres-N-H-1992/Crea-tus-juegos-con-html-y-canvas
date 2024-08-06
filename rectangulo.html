@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAnva-spiral</title>
+
+    <!--  *************************************************************************   -->
+    <style>
+        canvas {
+            background-color: cyan;
+            border: solid yellow 3px;
+        }
+    </style>
+
+    <!--  *************************************************************************   -->
+
+    <script>
+        function Rectangulo(x, y, ancho, alto, radio, fondo, linea) {
+            // Constructor para crear un objeto Rectángulo con ciertas propiedades.
+            
+            this.x = x;
+            // Coordenada x de la esquina superior izquierda del rectángulo.
+            
+            this.y = y;
+            // Coordenada y de la esquina superior izquierda del rectángulo.
+            
+            this.w = ancho;
+            // Ancho del rectángulo.
+            
+            this.h = alto;
+            // Alto del rectángulo.
+            
+            this.r = radio;
+            // Radio de las esquinas redondeadas del rectángulo (si es que tiene esquinas redondeadas).
+            
+            this.f = fondo;
+            // Color de fondo del rectángulo.
+            
+            this.l = linea;
+            // Color de la línea de borde del rectángulo.
+            
+            this.dibujar = function () {
+                // Método para dibujar el rectángulo en el canvas.
+                
+                ctx.save();
+                // Guarda el estado actual del contexto.
+                
+                ctx.beginPath();
+                // Inicializa un nuevo camino o ruta de dibujo.
+                
+                ctx.moveTo(this.x, this.y + this.r);
+                // Mueve el punto de inicio del camino a la posición inicial del rectángulo con el radio aplicado.
+    
+                // Esquina inferior izquierda 
+                ctx.lineTo(this.x, this.y + this.h - this.r);
+                ctx.quadraticCurveTo(this.x, this.y + this.h, this.x + this.r, this.y + this.h);
+    
+                // Esquina inferior derecha 
+                ctx.lineTo(this.x + this.w - this.r, this.y + this.h);
+                ctx.quadraticCurveTo(this.x + this.w, this.y + this.h, this.x + this.w, this.y + this.h - this.r);
+    
+                // Esquina superior derecha 
+                ctx.lineTo(this.x + this.w, this.y + this.r);
+                ctx.quadraticCurveTo(this.x + this.w, this.y, this.x + this.w - this.r, this.y);
+    
+                // Esquina superior izquierda 
+                ctx.lineTo(this.x + this.r, this.y);
+                ctx.quadraticCurveTo(this.x, this.y, this.x, this.y + this.r);
+    
+                ctx.fillStyle = this.f;
+                // Establece el color de relleno del rectángulo.
+                
+                ctx.strokeStyle = this.l;
+                // Establece el color de la línea de borde del rectángulo.
+    
+                ctx.fill();
+                // Rellena el interior del rectángulo.
+    
+                ctx.stroke();
+                // Dibuja el contorno del rectángulo.
+    
+                ctx.restore();
+                // Restaura el estado guardado del contexto.
+            }
+        }
+    
+        window.onload = function () {
+            // Ejecuta esta función cuando la ventana se haya cargado completamente.
+    
+            canvas = document.getElementById('canvas');
+            // Obtiene el elemento canvas del documento HTML.
+    
+            if (canvas && canvas.getContext) {
+                ctx = canvas.getContext("2d");
+                // Si el canvas existe y es compatible con el contexto 2D, obtiene el contexto 2D.
+    
+                if (ctx) {
+                    // Si el contexto 2D es compatible, procede con el dibujo.
+    
+                    var rectangulo1 = new Rectangulo(30, 30, 200, 120, 20, "yellow", "black");
+                    // Crea un nuevo objeto Rectángulo con las propiedades especificadas.
+                     rectangulo1.dibujar();
+                    // Llama al método dibujar para dibujar el rectángulo en el canvas.
+               
+               
+
+                    var rectangulo2 = new Rectangulo(250, 30, 200, 120, 20, "green", "black");
+                    // Crea un nuevo objeto Rectángulo con las propiedades especificadas.
+                     rectangulo2.dibujar();
+               
+               
+                }
+            }
+        }
+    </script>
+    
+
+    <!--  *************************************************************************   -->
+
+
+</head>
+
+<body>
+    <canvas id="canvas" width="600" height="400">
+    </canvas>
+</body>
+
+</html>
