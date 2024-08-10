@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAnva-estrella</title>
+
+    <!--  *************************************************************************   -->
+    <style>
+        body {
+            width: 510px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        canvas {
+            background-color: green;
+            border: solid yellow 3px;
+        }
+    </style>
+
+    <!--  *************************************************************************   -->
+    <script>
+        var canvas, ctx, imagen;
+        var archivoSelect;
+
+        window.onload = function () {
+            canvas = document.getElementById('canvas');
+            archivoSelect = document.getElementById("archivo");
+            ctx = canvas.getContext("2d");
+
+            imagen = new Image();
+            imagen.src = "imagenes/one-pice.jpg";
+            imagen.onload = function () {
+                procesaImagen();
+            }
+
+            archivoSelect.onchange = function (e) {
+                if (archivoSelect.value != "") {
+                    imagen.src = "imagenes/" + archivoSelect.value;
+                    imagen.onload = function () {
+                        procesaImagen();
+                    }
+                }
+            }
+
+            function procesaImagen() {
+                limpiar();
+
+                // Calcular la escala necesaria para ajustar la imagen
+                let scale = Math.min(canvas.width / imagen.width, canvas.height / imagen.height);
+
+                // Calcular las nuevas dimensiones de la imagen
+                let x = (canvas.width / 2) - (imagen.width / 2) * scale;
+                let y = (canvas.height / 2) - (imagen.height / 2) * scale;
+                let newWidth = imagen.width * scale;
+                let newHeight = imagen.height * scale;
+
+                // Dibujar la imagen escalada en el canvas
+                ctx.drawImage(imagen, x, y, newWidth, newHeight);
+            }
+
+            function limpiar() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+        }
+    </script>
+
+    <!--  *************************************************************************   -->
+
+</head>
+
+<body>
+    <h1>Proceso de imagenes</h1>
+    <canvas id="canvas" width="600" height="400">
+        Tu navegador no soporta la etiqueta canvas
+    </canvas>
+
+    Imagen:
+    <select id="archivo">
+        <option value="">--Seleccione un archivo--</option>
+        <option value="one-pice.jpg">one-pice</option>
+        <option value="One-Piece-PNG-Background.png">One-Piece-PNG-Background</option>
+        <option value="One-Piece-PNG-Cutout- one.png">One-Piece-PNG-Cutout- one</option>
+        <option value="One-Piece-No-Background.png">One-Piece-No-Background</option>
+        <option value="One-Piece-PNG-Images-HD.png">One-Piece-PNG-Images-HD</option>
+        <option value="One-Piece-PNG-Images.png">One-Piece-PNG-Images</option>
+        <option value="One-Piece-PNG-File.png">One-Piece-PNG-File</option>
+        <option value="">No hay opciones</option>
+    </select>
+</body>
+
+</html>
