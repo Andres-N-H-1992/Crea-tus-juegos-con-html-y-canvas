@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAnva-estrella</title>
+
+    <!--  *************************************************************************   -->
+    <style>
+
+        body {
+            width: 510px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        canvas {
+            background-color: green;
+            border: solid yellow 3px;
+        }
+    </style>
+
+    <!--  *************************************************************************   -->
+    <script>
+
+        const game={
+
+            ctx:null,
+            canvas:null,
+            radio:10,
+            bolaX:300,
+            bolaY:200,
+            colorBolas:"red",
+            dx:25,
+            dx:-4,
+            dy:-4
+
+        }
+
+
+
+
+
+        window.onload = function () {
+            // Ejecuta esta función cuando la ventana se haya cargado completamente.
+            game.canvas = document.getElementById('canvas');
+            // Obtiene el elemento canvas del documento HTML.
+            if (canvas && canvas.getContext) {
+                game.ctx = canvas.getContext("2d");
+                if(game.ctx){
+                    
+                    game.ctx.lineWidth =game.radio;
+                    game.ctx.fillStyle = game.colorBolas;
+                    mueve();
+                    setInterval(mueve, 60);
+                    
+                }
+
+            } else {
+                // Muestra una alerta si el contexto 2D no es compatible.
+                alert("No se soporta la etiqueta canvas");
+            }
+        }
+
+
+        const mueve =() =>{
+
+            game.ctx.clearRect(0,0, game.canvas.width, game.canvas.height);
+            game.bolaX += game.dx;
+            game.bolaY += game.dy;
+            game.ctx.beginPath();
+            game.ctx.arc(game.bolaX, game.bolaY, game.radio,0,2*Math.PI,true);
+            game.ctx.fill();
+
+
+        }
+        
+    </script>
+
+    <!--  *************************************************************************   -->
+
+
+</head>
+
+<body>
+    <h1>Proceso de imagenes</h1>   
+    <canvas id="canvas" width="600" height="400">
+    </canvas>
+</body>
+
+</html>
