@@ -27,8 +27,8 @@
             teclaPulsada: null,
             tecla: [],
             colorBala: "red",
-            balas_array: [],
-            enemigos_array: [],
+            balas_array: new Array(),
+            enemigos_array: new Array(),
 
             jugador: null,
         };
@@ -64,7 +64,7 @@
             };
         }
 
-        function Enemigos(x, y) {
+        function Enemigo(x, y) {
             this.x = x;
             this.y = y;
             this.w = 35;
@@ -74,7 +74,11 @@
             this.num = 14;
             this.figura = true;
             this.vive = true;
-            this.dibujar = function () { };
+            this.dibujar = function () {
+
+                game.ctx.drawImage(game.imagenEnemigo,0,0,40,30, this.x, this.y,30,30)
+
+             };
         }
 
         const caratula = () => {
@@ -85,11 +89,15 @@
             };
         };
 
+
+
         const seleccionar = (e) => {
             if (game.caratula) {
                 inicio();
             }
         };
+
+
 
         const inicio = () => {
             game.ctx.clearRect(0, 0, game.canvas.width, game.canvas.height);
@@ -98,11 +106,17 @@
             animar();
         };
 
+
+
+
         const animar = () => {
             requestAnimationFrame(animar);
             verificar();
             pintar();
         };
+
+
+
 
         const verificar = () => {
             if (game.tecla[KEY_RIGHT]) game.jugador.x += 10;
@@ -119,6 +133,9 @@
             }
         };
 
+
+
+
         const pintar = () => {
             game.ctx.clearRect(0, 0, game.canvas.width, game.canvas.height);
             game.jugador.dibujar();
@@ -132,16 +149,54 @@
                     }
                 }
             }
+
+
+            //enemigos
+            for (var i = 0; i < game.enemigos_array.length; i++) {
+                game.enemigos_array[i].dibujar();
+            }
+
+
+
         };
 
+
+
+/*
+LISTENER
+*/
         document.addEventListener("keydown", function (e) {
             game.teclaPulsada = e.keyCode;
             game.tecla[e.keyCode] = true;
         });
 
+
+
+
+
+
+
+
+
+
+
+
+
         document.addEventListener("keyup", function (e) {
             game.tecla[e.keyCode] = false;
         });
+
+
+
+
+
+
+
+
+
+
+
+
 
         window.requestAnimationFrame = (function () {
             return window.requestAnimationFrame ||
@@ -150,6 +205,14 @@
                 function (callback) { window.setTimeout(callback, 17); };
         })();
 
+
+
+
+
+
+
+
+
         window.onload = function () {
             game.canvas = document.getElementById("canvas");
             if (game.canvas && game.canvas.getContext) {
@@ -157,6 +220,21 @@
                 if (game.ctx) {
                     game.imagen = new Image();
                     game.imagen.src = "imagenes/torre.fw.png";
+
+                    //crear enemigo
+                    game.imagenEnemigo = new Image();
+                    game.imagenEnemigo.src = "imagenes/invader.fw.png";
+                    game.imagenEnemigo.onload = function () {
+                        for (var i = 0; i < 5; i++) {
+                            for (var j = 0; j < 10; j++) {
+                                game.enemigos_array.push(new Enemigo(100 + 40 * j, 30 + 45 * i));
+                            }
+                        }
+                    }
+
+
+
+
                     caratula();
                     game.canvas.addEventListener("click", seleccionar, false);
                 } else {
