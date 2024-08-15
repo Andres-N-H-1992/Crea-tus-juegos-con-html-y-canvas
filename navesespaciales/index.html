@@ -93,16 +93,22 @@
 
                     this.veces++;
                     this.ciclos = 0;
+                    this.figura = !this.figura;
 
                 } else {
 
                     this.ciclos++;
                 }
 
+                if (this.figura) {
+                    game.ctx.drawImage(game.imagenEnemigo, 0, 0, 40, 30, this.x, this.y, 30, 30)
+
+                } else {
+                    game.ctx.drawImage(game.imagenEnemigo, 50, 0, 30, 30, this.x, this.y, 30, 30)
+
+                }
 
 
-
-                game.ctx.drawImage(game.imagenEnemigo, 0, 0, 40, 30, this.x, this.y, 30, 30)
 
             };
         }
