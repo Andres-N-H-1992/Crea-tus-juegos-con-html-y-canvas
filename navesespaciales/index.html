@@ -27,9 +27,13 @@
             teclaPulsada: null,
             tecla: [],
             colorBala: "red",
+            colorBala2: "yellow",
             balas_array: [],
+            balasEnemigas_array: [],
             enemigos_array: [],
             jugador: null,
+            puntos: 0,
+            finalJuego: false,
         };
 
         /******************************
@@ -42,24 +46,28 @@
         const KEY_DOWN = 40;
         const BARRA = 32;
 
-        function Bala(x, y, w) {
+        function Bala(x, y, w, color, velocidad) {
             this.x = x;
             this.y = y;
             this.w = w;
+            this.color = color;
+            this.velocidad = velocidad;
             this.dibujar = function () {
                 game.ctx.save();
-                game.ctx.fillStyle = game.colorBala;
+                game.ctx.fillStyle = this.color;
                 game.ctx.fillRect(this.x, this.y, this.w, 10);
                 game.ctx.restore();
-                this.y -= 5;
+                this.y += this.velocidad;
             };
         }
 
         function Jugador(x, y) {
             this.x = x;
             this.y = y;
+            this.w = 30;
+            this.h = 15;
             this.dibujar = function () {
-                game.ctx.drawImage(game.imagen, this.x, this.y, 30, 15);
+                game.ctx.drawImage(game.imagen, this.x, this.y, this.w, this.h);
             };
         }
 
@@ -103,11 +111,11 @@
             let imagen = new Image();
             imagen.src = "imagenes/cara.webp";
             imagen.onload = () => {
-                game.ctx.drawImage(imagen, 0, 0);
+                game.ctx.drawImage(imagen, 0, 0, game.canvas.width, game.canvas.height);
             };
         };
 
-        const seleccionar = (e) => {
+        const seleccionar = () => {
             if (game.caratula) {
                 inicio();
             }
@@ -121,10 +129,12 @@
         };
 
         const animar = () => {
-            requestAnimationFrame(animar);
-            verificar();
-            pintar();
-            colisiones();
+            if (!game.finalJuego) {
+                requestAnimationFrame(animar);
+                verificar();
+                pintar();
+                colisiones();
+            }
         };
 
         const colisiones = () => {
@@ -135,7 +145,7 @@
                     enemigo = game.enemigos_array[i];
                     bala = game.balas_array[j];
 
-                    if (enemigo != null && bala != null) {
+                    if (enemigo && bala) {
                         if (
                             bala.x > enemigo.x &&
                             bala.x < enemigo.x + enemigo.w &&
@@ -146,32 +156,101 @@
                             game.enemigos_array[i] = null;
                             game.balas_array[j] = null;
                             game.disparo = false;
+                            game.puntos += 10;
                         }
                     }
                 }
             }
+
+            for (let j = 0; j < game.balasEnemigas_array.length; j++) {
+                let bala = game.balasEnemigas_array[j];
+                if (bala) {
+                    if (
+                        bala.x > game.jugador.x &&
+                        bala.x < game.jugador.x + game.jugador.w &&
+                        bala.y > game.jugador.y &&
+                        bala.y < game.jugador.y + game.jugador.h
+                    ) {
+                        gameOver();
+                    }
+                }
+            }
+        };
+
+        const gameOver = () => {
+            game.ctx.clearRect(0, 0, game.canvas.width, game.canvas.height);
+            game.balas_array = [];
+            game.enemigos_array = [];
+            game.balasEnemigas_array = [];
+            game.finalJuego = true;
+            mensaje("Game Over", 100, 80);
+            mensaje("lograste " + game.puntos + " puntos", 200);
+
+            if (game.puntos >= 100 && game.puntos <= 200) {
+                mensaje("Casi lo logras", 340);
+            } else if (game.puntos > 200) {
+                mensaje("¡Felicidades!", 340);
+            } else {
+                mensaje("Lo siento, has perdido", 340);
+            }
+        };
+
+        const mensaje = (cadena, y, tamano = 40) => {
+            let medio = game.canvas.width / 2;
+            game.ctx.save();
+            game.ctx.fillStyle = "green";
+            game.ctx.strokeStyle = "blue";
+            game.ctx.textBaseline = "top";
+            game.ctx.font = `bold ${tamano}px Courier`;
+            game.ctx.textAlign = "center";
+            game.ctx.fillText(cadena, medio, y);
+            game.ctx.restore();
         };
 
         const verificar = () => {
             if (game.tecla[KEY_RIGHT]) game.jugador.x += 10;
             if (game.tecla[KEY_LEFT]) game.jugador.x -= 10;
 
-            if (game.jugador.x > game.canvas.width - 30) game.jugador.x = game.canvas.width - 30;
+            if (game.jugador.x > game.canvas.width - game.jugador.w) game.jugador.x = game.canvas.width - game.jugador.w;
             if (game.jugador.x < 0) game.jugador.x = 0;
 
             if (game.tecla[BARRA] && !game.disparo) {
-                game.balas_array.push(new Bala(game.jugador.x + 12, game.jugador.y - 3, 5));
+                game.balas_array.push(new Bala(game.jugador.x + game.jugador.w / 2 - 2.5, game.jugador.y - 3, 5, game.colorBala, -5));
                 game.tecla[BARRA] = false;
                 game.disparo = true;
+            }
+
+            // Disparos del enemigo
+            if (Math.random() > 0.96) {
+                dispararEnemigos();
+            }
+        };
+
+        const dispararEnemigos = () => {
+            const ultimos = [];
+
+            for (let i = game.enemigos_array.length - 1; i >= 0; i--) {
+                if (game.enemigos_array[i]) {
+                    ultimos.push(i);
+                }
+                if (ultimos.length === 10) break;
+            }
+
+            if (ultimos.length > 0) {
+                const d = ultimos[Math.floor(Math.random() * ultimos.length)];
+                game.balasEnemigas_array.push(new Bala(game.enemigos_array[d].x + game.enemigos_array[d].w / 2, game.enemigos_array[d].y, 5, game.colorBala2, 6));
             }
         };
 
         const pintar = () => {
             game.ctx.clearRect(0, 0, game.canvas.width, game.canvas.height);
+
+            scare();
+
             game.jugador.dibujar();
 
             for (let i = 0; i < game.balas_array.length; i++) {
-                if (game.balas_array[i] != null) {
+                if (game.balas_array[i]) {
                     game.balas_array[i].dibujar();
                     if (game.balas_array[i].y < 0) {
                         game.disparo = false;
@@ -182,10 +261,29 @@
             }
 
             for (let i = 0; i < game.enemigos_array.length; i++) {
-                if (game.enemigos_array[i] != null) {
+                if (game.enemigos_array[i]) {
                     game.enemigos_array[i].dibujar();
                 }
             }
+
+            // Dibujar balas enemigas
+            for (let i = 0; i < game.balasEnemigas_array.length; i++) {
+                if (game.balasEnemigas_array[i]) {
+                    game.balasEnemigas_array[i].dibujar();
+                    if (game.balasEnemigas_array[i].y > game.canvas.height) {
+                        game.balasEnemigas_array.splice(i, 1);
+                        i--;
+                    }
+                }
+            }
+        };
+
+        const scare = () => {
+            game.ctx.save();
+            game.ctx.fillStyle = "white";
+            game.ctx.font = "bold 20px Courier";
+            game.ctx.fillText("SCORE: " + game.puntos, 10, 20);
+            game.ctx.restore();
         };
 
         document.addEventListener("keydown", (e) => {
