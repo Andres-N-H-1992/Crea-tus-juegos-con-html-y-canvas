@@ -34,6 +34,11 @@
             jugador: null,
             puntos: 0,
             finalJuego: false,
+            boing:null,
+            disparoJugador:null,
+            intro:null,
+            fin:null,
+
         };
 
         /******************************
@@ -138,7 +143,9 @@
         };
 
         const colisiones = () => {
+
             let enemigo, bala;
+
 
             for (let i = 0; i < game.enemigos_array.length; i++) {
                 for (let j = 0; j < game.balas_array.length; j++) {
@@ -157,10 +164,14 @@
                             game.balas_array[j] = null;
                             game.disparo = false;
                             game.puntos += 10;
+                            game.boing.play();
                         }
                     }
                 }
             }
+
+            // colicion de balas enemigas 
+
 
             for (let j = 0; j < game.balasEnemigas_array.length; j++) {
                 let bala = game.balasEnemigas_array[j];
@@ -177,12 +188,17 @@
             }
         };
 
+
+
+
+
         const gameOver = () => {
             game.ctx.clearRect(0, 0, game.canvas.width, game.canvas.height);
             game.balas_array = [];
             game.enemigos_array = [];
             game.balasEnemigas_array = [];
             game.finalJuego = true;
+            game.fin.play();
             mensaje("Game Over", 100, 80);
             mensaje("lograste " + game.puntos + " puntos", 200);
 
@@ -194,6 +210,10 @@
                 mensaje("Lo siento, has perdido", 340);
             }
         };
+
+
+
+
 
         const mensaje = (cadena, y, tamano = 40) => {
             let medio = game.canvas.width / 2;
@@ -218,6 +238,7 @@
                 game.balas_array.push(new Bala(game.jugador.x + game.jugador.w / 2 - 2.5, game.jugador.y - 3, 5, game.colorBala, -5));
                 game.tecla[BARRA] = false;
                 game.disparo = true;
+                game.disparoJugador.play();
             }
 
             // Disparos del enemigo
@@ -225,6 +246,10 @@
                 dispararEnemigos();
             }
         };
+
+
+
+
 
         const dispararEnemigos = () => {
             const ultimos = [];
@@ -241,6 +266,10 @@
                 game.balasEnemigas_array.push(new Bala(game.enemigos_array[d].x + game.enemigos_array[d].w / 2, game.enemigos_array[d].y, 5, game.colorBala2, 6));
             }
         };
+
+
+
+
 
         const pintar = () => {
             game.ctx.clearRect(0, 0, game.canvas.width, game.canvas.height);
@@ -296,10 +325,25 @@
         });
 
         window.onload = () => {
+
             game.canvas = document.getElementById("canvas");
             if (game.canvas && game.canvas.getContext) {
                 game.ctx = game.canvas.getContext("2d");
                 if (game.ctx) {
+
+                    //
+                    // Sonidos
+                    //
+
+                    game.boing = document.getElementById("boing");
+                    game.disparoJugador = document.getElementById("disparo");
+                    game.intro = document.getElementById("intro");
+                    game.fin = document.getElementById("fin");
+
+
+
+
+
                     game.imagen = new Image();
                     game.imagen.src = "imagenes/torre.fw.png";
 
@@ -328,6 +372,29 @@
     <canvas id="canvas" width="960" height="500">
         Tu navegador no soporta el canvas de HTML5
     </canvas>
+
+    <audio id="boing">
+        <source src="sonidos/disparo.mp3">
+        <source src="sonidos/disparo.ogg">
+
+    </audio>
+
+    <audio id="disparo">
+        <source src="sonidos/disparo.mp3">
+        <source src="sonidos/disparo.ogg">
+    </audio>
+
+    <audio id="intro">
+        <source src="sonidos/intro.mp3">
+        <source src="sonidos/intro.ogg">
+
+    </audio>
+
+    <audio id="fin">
+        <source src="sonidos/gameOver.mp3">
+        <source src="sonidos/gameOver.ogg">
+    </audio>
+
 </body>
 
 </html>
